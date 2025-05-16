@@ -4,19 +4,19 @@
 USERID=$(id -u)
 TIMESTAMP=$(date +%F-%H-%M-%S)
 SCRIPT_NAME=$(echo $0 | cut -d "." -f1)
-LOFFILE=/tmp/$SCRIPT_NAME-$TIMESTAMP.log
+LOGFILE=/tmp/$SCRIPT_NAME-$TIMESTAMP.log
 R="\e[31m"
 G="\e[32m"
-Y="\e[32m"
+Y="\e[33m"
 N="\e[0m"
 
 VALIDATE(){
    if [ $1 -ne 0 ]
    then
-        echo "$2...FAILURE"
+        echo -e "$2...$R FAILURE $N"
         exit 1
     else
-        echo "$2...SUCCESS"
+        echo -e "$2...$G SUCCESS $N"
     fi
 
 }
@@ -33,12 +33,13 @@ fi
 for i in $@
 do
     echo "pakage to install : $i"
-    dnf list installed $i &>>$LOFFILE
+    dnf list installed $i &>>$LOGFILE
     if [ $? -eq 0 ]
     then    
         echo  -e "$i already installd...$Y SKIPPING $N"
     else
-        echo "$i not installed...Need to install"
+        dnf install $i -y &>>$LOGFILE
+        VALIDATE $? "Installation of $i
     fi
 done
 #sudo sh filename pakagename1 packagename2

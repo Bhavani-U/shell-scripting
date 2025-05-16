@@ -4,7 +4,7 @@
 USERID=$(id -u)
 TIMESTAMP=$(date +%F-%H-%M-%S)
 SCRIPT_NAME=$(echo $0 | cut -d "." -f1)
-LOFFILE=/tmp/$SCRIPT_NAME-$TIMESTAMP.log
+LOGFILE=/tmp/$SCRIPT_NAME-$TIMESTAMP.log
 
 R="\e[31m"
 G="\e[32m"
@@ -31,14 +31,14 @@ else
     echo "You are super user."
 fi
 
-dnf install mysql -y &>>$LOFFILE
+dnf install mysql -y &>>$LOGFILE
 VALIDATE $? "Installing MySQL"
 
 
-dnf install git -y &>>$LOFFILE
+dnf install git -y &>>$LOGFILE
 VALIDATE $? "Installing Git"
 
-dnf install docker -y &>>$LOFFILE
+dnf install docker -y &>>$LOGFILE
 VALIDATE $? "Installing Docker"
 
 
