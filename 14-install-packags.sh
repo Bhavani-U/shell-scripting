@@ -35,6 +35,7 @@ do
         echo "$i already installd...SKIPPING"
     else
         echo "$i not installed...Need to install"
+    fi
 done
 #sudo sh filename pakagename1 packagename2
 
