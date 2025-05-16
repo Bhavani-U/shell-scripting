@@ -35,9 +35,11 @@ dnf install mysql -y &>>$LOFFILE
 VALIDATE $? "Installing MySQL"
 
 
-
-
 dnf install git -y &>>$LOFFILE
 VALIDATE $? "Installing Git"
+
+dnf install dockerr -y &>>$LOFFILE
+VALIDATE $? "Installing Git"
+
 
 
