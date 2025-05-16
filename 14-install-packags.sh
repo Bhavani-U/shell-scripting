@@ -30,7 +30,7 @@ for i in $@
 do
     echo "pakage to install : $i"
     dnf list installed $i &>>$LOFFILE
-    if [ $? -ne 0 ]
+    if [ $? -q 0 ]
     then    
         echo "$i already installd...SKIPPING"
     else
