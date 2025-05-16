@@ -39,7 +39,7 @@ do
         echo  -e "$i already installd...$Y SKIPPING $N"
     else
         dnf install $i -y &>>$LOGFILE
-        VALIDATE $? "Installation of $i
+        VALIDATE $? "Installation of $i"
     fi
 done
 #sudo sh filename pakagename1 packagename2
