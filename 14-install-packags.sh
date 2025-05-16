@@ -2,7 +2,20 @@
 
 
 USERID=$(id -u)
+TIMESTAMP=$(date +%F-%H-%M-%S)
+SCRIPT_NAME=$(echo $0 | cut -d "." -f1)
+LOFFILE=/tmp/$SCRIPT_NAME-$TIMESTAMP.log
 
+VALIDATE(){
+   if [ $1 -ne 0 ]
+   then
+        echo "$2...FAILURE"
+        exit 1
+    else
+        echo "$2...SUCCESS"
+    fi
+
+}
 
 if [ $USERID -ne 0 ]
 then
@@ -13,7 +26,15 @@ else
 fi
 
 
-echo "All pakages : $@"
-
+for i in $@
+do
+    echo "pakage to install : $i"
+    dnf list installed $i &>>$LOFFILE
+    if [ $? -ne 0 ]
+    then    
+        echo "$i already installd...SKIPPING"
+    else
+        echo "$i not installed...Need to install"
+done
 #sudo sh filename pakagename1 packagename2
 
